@@ -1,6 +1,6 @@
 {
   "name": "@zadkiel/feed",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Feed is a RSS, Atom and JSON feed generator for Node.js, making content syndication simple and intuitive!",
   "homepage": "https://github.com/jpmonette",
   "author": "Jean-Philippe Monette <contact@jpmonette.net>",
