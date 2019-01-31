@@ -3,6 +3,7 @@
 import * as xml from "xml";
 
 import { generator } from "./config";
+import { ifTruePush, ifTruePushArray } from './feed';
 
 const DOCTYPE = '<?xml version="1.0" encoding="utf-8"?>\n';
 
@@ -85,6 +86,8 @@ export default (ins: Feed) => {
     });
   }
 
+  ifTruePushArray(ins.elements, channel);
+
   /**
    * Channel Categories
    * http://cyber.law.harvard.edu/rss/rss.html#hrelementsOfLtitemgt
@@ -134,6 +137,8 @@ export default (ins: Feed) => {
       item.push({ enclosure: [{ _attr: { url: entry.image } }] });
     }
 
+    ifTruePushArray(entry.elements, item);
+
     channel.push({ item });
   });
 
@@ -144,6 +149,10 @@ export default (ins: Feed) => {
   if (isAtom) {
     rss[0]._attr["xmlns:atom"] = "http://www.w3.org/2005/Atom";
   }
+
+  Object.keys(ins.namespaces).forEach(function (ns) {
+    rss[0]._attr[ns] = ins.namespaces[ns];
+  });
 
   return DOCTYPE + xml([{ rss }], true);
 };
